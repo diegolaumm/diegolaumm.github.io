@@ -4,28 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的靈感便利貼</title>
+    
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 
     <style>
-    /* 定義字體 Class */
-    .font-serif { font-family: 'Noto Serif TC', serif; }       /* 經典宋體 */
-    .font-sans  { font-family: 'Noto Sans TC', sans-serif; }   /* 極簡黑體 */
-    .font-poem  { font-family: 'Zhi Mang Xing', cursive; }      /* 狂草手寫感 */
-    .font-brush { font-family: 'Ma Shan Zheng', cursive; }      /* 楷書筆觸 */
-    
-    /* 修改原本的 .post-it，讓它能套用這些字體 */
-    .post-it p { font-size: 1.1em; }
-    </style>
-    <style>
+        /* =========================================
+           1. 基礎頁面設定
+           ========================================= */
         body {
             background-color: #f0f0f0;
-            font-family: 'Noto Serif TC',"PingFang TC", "Microsoft JhengHei", sans-serif;
+            font-family: 'Noto Serif TC', "PingFang TC", "Microsoft JhengHei", sans-serif;
             display: flex;
             justify-content: center;
             padding: 40px 20px;
         }
+
         .wall {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -33,24 +29,41 @@
             width: 100%;
             max-width: 1200px;
         }
-        /* 便利貼基本樣式 */
+
+        /* =========================================
+           2. 字體類別定義
+           ========================================= */
+        .font-serif { font-family: 'Noto Serif TC', serif; }       /* 經典宋體 */
+        .font-sans  { font-family: 'Noto Sans TC', sans-serif; }   /* 極簡黑體 */
+        .font-poem  { font-family: 'Zhi Mang Xing', cursive; }      /* 狂草手寫感 */
+        .font-brush { font-family: 'Ma Shan Zheng', cursive; }      /* 楷書筆觸 */
+
+        /* =========================================
+           3. 便利貼主要元件樣式
+           ========================================= */
         .post-it {
             padding: 25px;
-            min-height: 200px;
+            height: fit-content; /* 讓高度隨內容自動縮放 */
             box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
             position: relative;
-            transition: transform 0.2s;
-            line-height: 1.6;
+            transition: transform 0.2s, box-shadow 0.2s, z-index 0s;
+            word-wrap: break-word; /* 防止長字或長公式溢出 */
         }
+
+        /* 滑鼠移過去時的放大與浮起效果 */
         .post-it:hover {
             transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.15);
             z-index: 10;
         }
-        /* 不同顏色的便利貼 */
-        .yellow { background-color: #fff9c4; transform: rotate(-2deg); }
-        .blue   { background-color: #e3f2fd; transform: rotate(1.5deg); }
-        .pink   { background-color: #fce4ec; transform: rotate(-1deg); }
-        
+
+        .post-it p { 
+            font-size: 1.1em; 
+            line-height: 1.6;
+            margin-bottom: 0; 
+            white-space: pre-wrap; /* 保留你在 HTML 裡打的換行 */
+        }
+
         .date {
             font-size: 0.8em;
             color: #666;
@@ -58,15 +71,34 @@
             margin-bottom: 10px;
             display: block;
         }
-        h2 { font-size: 1.2em; margin-top: 0; }
-        p { margin-bottom: 0; white-space: pre-wrap; }
+
+        h2 { 
+            font-size: 1.2em; 
+            margin-top: 0; 
+        }
+
+        /* =========================================
+           4. 顏色庫與旋轉角度設定
+           ========================================= */
+        .yellow { background-color: #fff9c4; transform: rotate(-2deg); }
+        .blue   { background-color: #e3f2fd; transform: rotate(1.5deg); }
+        .pink   { background-color: #fce4ec; transform: rotate(-1deg); }
+        .green  { background-color: #e8f5e9; transform: rotate(2deg); }
+        .purple { background-color: #f3e5f5; transform: rotate(-1.5deg); }
+
+        /* =========================================
+           5. 特殊尺寸設定
+           ========================================= */
+        .large-note {
+            grid-column: span 2; /* 如果內容很多，占兩格寬度 */
+        }
     </style>
 </head>
 <body>
 
 <div class="wall">
-<div class="post-it yellow font-poem">
-    <span class="date">2026-04-11</span>
+    <div class="post-it yellow font-poem">
+        <span class="date">2026-04-11</span>
         <h2>〈時光微粒〉</h2>
         <p>窗沿落下的光
 被切成了
